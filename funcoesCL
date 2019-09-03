@@ -1,14 +1,14 @@
 #!/bin/bash
 #######################################################################################
 #
-# Funcoes Consulta Linux (funcoesCL) rev212
+# Funcoes Consulta Linux (funcoesCL) rev213
 # Biblioteca de ferramentas e mini aplicativos para linha de comando.
 #
 # INICIADO:	= 21 de Novembro de 2013
-# MODIFICADO:	= 20 de Agosto de 2019
+# MODIFICADO:	= 03 de Setembro de 2019
 #
 # SITE:		= https://www.consultalinux.org
-# AUTOR:	= Alan Victor Mesquita Leite    [alanvictorjp@gmail.com]
+# AUTOR:	= Alan Victor Mesquita Leite    [alanvictorjp gmail com]
 #
 #######################################################################################
 AJUDA="
@@ -115,6 +115,103 @@ CLcores() {
 
 	esac
 
+}
+
+CLhotswap() {
+    help="
+    #
+    # Funcao CLhotswap
+    # Alan Victor Mesquita Leite
+    # 04/02/2018 | 03/09/2019
+    #
+    # CLhotswap: Conecta e Desconecta dispositivos de armazenamento serial
+    #
+    # [USO]: hotswap [argumento]
+    #
+    #   hotswap -s | --scan
+    #       Levanta dispositivos de armazenamento serial.
+    #
+    #   hotswap -d | --delete
+    #       Desmonta e remove com segurança.
+    #
+    #   hotswap -h | --help
+    #       Mostra Esse help!
+    #
+    "
+
+	null=/dev/null
+	arg1=$1
+
+	clear
+	echo -en "\n\tHOTSWAP\n"
+
+	case $arg1 in
+		-s|--scan)
+			a=$(ls /dev/sd[a-z])
+				for portas in $(ls -d /sys/class/scsi_host/host* | sed 's/^.*host//') ; do
+					echo "- - -" > /sys/class/scsi_host/host$portas/scan
+				done
+			b=$(ls /dev/sd[a-z])
+
+
+			for i in $b ; do
+			        saida=$(echo $a | grep -q $i || echo $i)
+			done
+
+			[[ -z $saida ]] && {
+				echo "Nenhum dispositivo a ser levantado!";
+			}||{
+				echo "Dispositivo levantado: $saida";
+			}
+		;;
+
+		-d|--delete)
+
+			a=1
+			ls=$(fdisk -l 2> $null | grep '\(^Disco\|^Disk\) \/dev' | sed 's/,\s[0-9]\{4,\}.*//g')
+			lines=$(echo "$ls" | wc -l)
+
+			echo "$ls" | \
+			while read i ; do
+				echo [ $a ] $i
+				a=$(($a + 1))
+			done
+
+			read -p 'Opção: ' opt
+
+			[[ $opt =~ ^[0-9]$ && $opt -le $lines ]] || {
+				echo "Opção invalida!";
+				return 1;
+			}
+
+			[[ -d $(echo "$ls" | sed -n "${opt}p" | sed 's/^.*dev\/\(sd[a-z]\).*/\1/') ]] || {
+				echo 'Dispositivo não conectado!';
+				return 1;
+			}
+
+			read -p 'Parece tudo pronto para desconectar, Continuar? [S/n]: ' opt
+			[[ -z $opt ]] && opt=s
+
+			case $opt in
+				s|S)
+				umount /dev/${dev}* 2> $null
+				sleep 2
+				echo offline > /sys/block/$dev/device/state && sleep 1 && \
+				echo 1 > /sys/block/$dev/device/delete && \
+				echo 'Dispositivo pode ser removido com segurança!'
+				;;
+
+				*)
+				echo 'Saindo...';
+				return 1;
+				;;
+			esac
+		;;
+
+		-h|--help|*)
+			clear ; echo "$help"
+			;;
+	esac
 }
 
 CLssldissect() {
