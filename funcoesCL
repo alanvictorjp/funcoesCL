@@ -300,7 +300,7 @@ CLtraffic() {
 
 	CLcores --ativar
 
-	[[ $(which bc) ]] || { echo "Calculadora BC nao instalado!" ; exit 1; }
+	[[ $(which bc) ]] || { echo "Calculadora BC nao instalado!" ; return 1; }
 
 	a=1
 	ls=$(ls /sys/class/net/)
@@ -1380,38 +1380,38 @@ CLdel_hist() {
 				echo -e "\n\n"
 			;;
 
-		-u|--update)
-
-			CLcores --ativar
-			eco_verde "BUSCANDO INFORMAÇÃO DE ATUALIZAÇÃO...\n"
-			rm -rf /tmp/versao_CL &> $null
-			wget https://consultalinux.org/sources/versao_CL -O /tmp/versao_CL &> $null
-			repo_version=$(cat /tmp/versao_CL)
-			local_version=$(cat $0 | sed -n 1,5p | grep 'rev[0-9]\+' | sed 's/^.*rev\([0-9]\+\).*/\1/')
-
-			[[ $repo_version -gt $local_version ]] && {
-				eco_verde_claro "Preparando upgrade...\n"
-				wget https://consultalinux.org/sources/funcoesCL.tar.gz -O /tmp/funcoesCL.tar.gz &> $null &&
-				tar -xf /tmp/funcoesCL.tar.gz -C /etc/ && {
-					eco_verde_claro "funcoesCL atualizado!\n"
-					exit
-				}||{
-					eco_vermelho_claro "ERRO ao atualizar ferramenta, atualize manualmente!\n"
-					echo "LINK: https://consultalinux.org/sources/funcoesCL.tar.gz"
-					exit
-				}
-			}
-
-			[[ $repo_version -eq $local_version ]] && {
-				eco_verde_claro "Você já possui a ultima versão!\n"
-				exit
-			}
-
-			[[ $repo_version -lt $local_version ]] && {
-				eco_verde_claro "Você está usando uma versão de desenvolvimento!\n"
-				exit
-			}
-		;;
+#		-u|--update)
+#
+#			CLcores --ativar
+#			eco_verde "BUSCANDO INFORMAÇÃO DE ATUALIZAÇÃO...\n"
+#			rm -rf /tmp/versao_CL &> $null
+#			wget https://consultalinux.org/sources/versao_CL -O /tmp/versao_CL &> $null
+#			repo_version=$(cat /tmp/versao_CL)
+#			local_version=$(cat $0 | sed -n 1,5p | grep 'rev[0-9]\+' | sed 's/^.*rev\([0-9]\+\).*/\1/')
+#
+#			[[ $repo_version -gt $local_version ]] && {
+#				eco_verde_claro "Preparando upgrade...\n"
+#				wget https://consultalinux.org/sources/funcoesCL.tar.gz -O /tmp/funcoesCL.tar.gz &> $null &&
+#				tar -xf /tmp/funcoesCL.tar.gz -C /etc/ && {
+#					eco_verde_claro "funcoesCL atualizado!\n"
+#					exit
+#				}||{
+#					eco_vermelho_claro "ERRO ao atualizar ferramenta, atualize manualmente!\n"
+#					echo "LINK: https://consultalinux.org/sources/funcoesCL.tar.gz"
+#					exit
+#				}
+#			}
+#
+#			[[ $repo_version -eq $local_version ]] && {
+#				eco_verde_claro "Você já possui a ultima versão!\n"
+#				exit
+#			}
+#
+#			[[ $repo_version -lt $local_version ]] && {
+#				eco_verde_claro "Você está usando uma versão de desenvolvimento!\n"
+#				exit
+#			}
+#		;;
 
 		-h|--help)
 			clear
@@ -1435,7 +1435,7 @@ CLdel_hist() {
 			echo -e "${tcolor}   INICIO .......: 21 de Novembro de 2013${finall}"
 			echo -e "${tcolor}   MODIF ........: $modificado${finall}"
 			echo -e "${tcolor}   SITE .........: https://www.consultalinux.org${finall}"
-			echo -e "${tcolor}   AUTOR ........: Alan Victor Mesquita Leite    [alanvictorjp@gmail.com]${finall}\n\n"
+			echo -e "${tcolor}   AUTOR ........: Alan Victor Mesquita Leite    [alanvictorjp gmail com]${finall}\n\n"
 
 			;;
 

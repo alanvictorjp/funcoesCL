@@ -1,5 +1,6 @@
 <b>funcoesCL</b><br>
-Conjunto de mini aplicativos para a linha de comando linux, escrita em GNU/bash e não portável. Algumas funções inúteis foram removidas com o decorrer do tempo, e outras foram adicionadas.
+Biblioteca de ferramentas e mini aplicativos para linha de comando linux, escrita em GNU/bash e não portável.<br>
+Algumas funções inúteis foram removidas com o decorrer do tempo, e outras foram adicionadas.
 
 <b>Objetivos:</b>
 Funções para a linha de comando do linux, facilitando alguns trabalhos.<br>
@@ -8,7 +9,7 @@ Possibilidade de programadores, profissionais e amadores, ler, estudar, modifica
 <b>Funcoes Disponiveis:</b>
 
       CLcores           Ativa cores no terminal e nas funções.
-      CLhotswap			Conecta e Desconecta dispositivos de armazenamento serial
+      CLhotswap         Conecta e Desconecta dispositivos de armazenamento serial.
       CLssldissect      SSL dissect.
       CLstrace          Capturador de teclas de sessão (keylogger).
       CLtraffic         Mostra trafego Download e Upload de interfaces.
