@@ -9,7 +9,7 @@ Possibilidade de programadores, profissionais e amadores, ler, estudar, modifica
 <b>Funcoes Disponiveis:</b>
 
       CLcores           Ativa cores no terminal e nas funções.
-      CLverifica_csrf   Verifica codestring em arquivos que possuem formulários.
+	  CLverifica_linha  Verifica codestring em arquivos que possuem formulários.
       CLhotswap         Conecta e Desconecta dispositivos de armazenamento serial.
       CLssldissect      SSL dissect.
       CLstrace          Capturador de teclas de sessão (keylogger).
