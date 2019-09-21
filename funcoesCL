@@ -117,6 +117,46 @@ CLcores() {
 
 }
 
+CLverifica_csrf() {
+    clear
+    help="
+    #
+    # Funcao CLverifica_csrf
+    # Alan Victor Mesquita Leite
+    # 21/09/2019
+    #
+    # CLverifica_linha: verifica formulários vulneráveis a ataques CSRF
+    #
+    # [USO]:
+    #          CLverifica_csrf [csrf_string_code] [diretorio]
+    #          CLverifica_csrf csrf_token /var/www/view/
+    #
+    # [INFORMACAO]:
+    #          Verifica no diretorio /var/www/view/, formulários que possuem code_string relacionado a csrf
+    #
+    # [HELP]:
+    #          CLverifica_csrf --help
+    #
+    "
+
+    [[ -z $1 || -z $2 ]] && { echo "$help" ; return 0 ; }
+    CLcores --ativar
+    var=$(grep -R -i '<form ' $2 | sed 's/:.*//' | sort -u)
+
+    for i in $var ; do
+        grep -R -i -q "$1" $i && {
+            eco_verde "$i" ;
+            eco_verde_claro " existe " ;
+            eco_verde "$1\n" ;
+        }||{
+            eco_vermelho "$i" ;
+            eco_vermelho_claro " não existe " ;
+            eco_vermelho "$1\n" ;
+        }
+    done
+}
+
+
 CLhotswap() {
     help="
     #
