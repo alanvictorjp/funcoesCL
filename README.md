@@ -9,6 +9,7 @@ Possibilidade de programadores, profissionais e amadores, ler, estudar, modifica
 <b>Funcoes Disponiveis:</b>
 
       CLcores           Ativa cores no terminal e nas funções.
+      CLverifica_csrf   Verifica formulários vulneráveis a ataques CSRF.
       CLhotswap         Conecta e Desconecta dispositivos de armazenamento serial.
       CLssldissect      SSL dissect.
       CLstrace          Capturador de teclas de sessão (keylogger).
