@@ -1,11 +1,11 @@
 #!/bin/bash
 #######################################################################################
 #
-# Funcoes Consulta Linux (funcoesCL) rev214
+# Funcoes Consulta Linux (funcoesCL) rev215
 # Biblioteca de ferramentas e mini aplicativos para linha de comando.
 #
 # INICIADO:	= 21 de Novembro de 2013
-# MODIFICADO:	= 21 de Setembro de 2019
+# MODIFICADO:	= 24 de Setembro de 2019
 #
 # SITE:		= https://www.consultalinux.org
 # AUTOR:	= Alan Victor Mesquita Leite    [alanvictorjp gmail com]
@@ -854,7 +854,7 @@ CLkeygen() {
 			return 1;
 		}
 
-	        scp -P $port -i $privatekey $pubkey $userhost:/root/.ssh/authorized_keys &> $null && {
+	        scp -P $port -i $privatekey $pubkey $userhost:/root/.ssh/authorized_keys2 &> $null && {
 	                eco_verde "\t$userhost: Chave publica envidada\n" ;
 	        } || {
 	                eco_vermelho_claro "\t$userhost: Erro ao enviar chave\n" ;
