@@ -125,7 +125,7 @@ CLverifica_csrf() {
     # Alan Victor Mesquita Leite
     # 21/09/2019
     #
-    # CLverifica_linha: Verifica codestring em arquivos que possuem formulários
+    # CLverifica_csrf: Verifica codestring em arquivos que possuem formulários
     #
     # [USO]:
     #          CLverifica_csrf [csrf_string_code] [diretorio]
